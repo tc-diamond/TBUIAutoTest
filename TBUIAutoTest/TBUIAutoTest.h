@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const kAutoTestUILongPressKey; // 是否开启长按弹窗显示 UI 标签
+
 @interface TBUIAutoTest : NSObject <UIGestureRecognizerDelegate>
 
 + (instancetype)sharedInstance;

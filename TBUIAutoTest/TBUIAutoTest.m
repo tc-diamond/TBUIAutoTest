@@ -9,6 +9,8 @@
 #import "TBUIAutoTest.h"
 #import <objc/runtime.h>
 
+NSString * const kAutoTestUILongPressKey = @"kAutoTestUILongPressKey";
+
 @implementation TBUIAutoTest
 
 + (instancetype)sharedInstance
