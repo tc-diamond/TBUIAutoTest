@@ -14,17 +14,13 @@
 
 + (void)load
 {
-    BOOL isAutoTestUI = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUITurnOnKey];
-    if (isAutoTestUI)
-    {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            Class imageClass = NSClassFromString(@"UIImage");
-            [object_getClass(imageClass) swizzleSelector:@selector(imageNamed:) withAnotherSelector:@selector(tb_imageNamed:)];
-            [object_getClass(imageClass) swizzleSelector:@selector(imageWithContentsOfFile:) withAnotherSelector:@selector(tb_imageWithContentsOfFile:)];
-            [imageClass swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
-        });
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class imageClass = NSClassFromString(@"UIImage");
+        [object_getClass(imageClass) swizzleSelector:@selector(imageNamed:) withAnotherSelector:@selector(tb_imageNamed:)];
+        [object_getClass(imageClass) swizzleSelector:@selector(imageWithContentsOfFile:) withAnotherSelector:@selector(tb_imageWithContentsOfFile:)];
+        [imageClass swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
+    });
 }
 
 #pragma mark - Method Swizzling

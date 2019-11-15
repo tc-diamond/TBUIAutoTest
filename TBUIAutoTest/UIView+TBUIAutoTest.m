@@ -19,18 +19,14 @@
 
 + (void)load
 {
-    BOOL isAutoTestUI = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUITurnOnKey];
-    if (isAutoTestUI)
-    {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            Class viewClass = NSClassFromString(@"UIView");
-            [viewClass swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
-            if ([NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUILongPressKey]) {
-                [viewClass swizzleSelector:@selector(addSubview:) withAnotherSelector:@selector(tb_addSubview:)];
-            }
-        });
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class viewClass = NSClassFromString(@"UIView");
+        [viewClass swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
+        if ([NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUILongPressKey]) {
+            [viewClass swizzleSelector:@selector(addSubview:) withAnotherSelector:@selector(tb_addSubview:)];
+        }
+    });
 }
 
 - (void)longPress:(UILongPressGestureRecognizer *)recognizer
