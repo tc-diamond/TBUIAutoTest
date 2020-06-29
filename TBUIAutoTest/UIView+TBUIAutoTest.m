@@ -81,7 +81,7 @@
         else if ([self isKindOfClass:[UIImageView class]]) {//UIImageView 使用 image 的 imageName
             labelStr = [NSString stringWithFormat:@"TBUIAutoTest_ImageView_%@", ((UIImageView *)self).image.accessibilityIdentifier ?: [NSString stringWithFormat:@"image%ld", (long)((UIImageView *)self).tag]];
         }
-        else if ([self isKindOfClass:[UIButton class]]) {//UIButton 使用 button 的 text 和 image
+        else if ([self isKindOfClass:[UIButton class]] && !CGRectEqualToRect(self.frame, CGRectZero)) {//UIButton 使用 button 的 text 和 image
             labelStr = [NSString stringWithFormat:@"TBUIAutoTest_Button_%@_%@",((UIButton *)self).titleLabel.text ?: @"", ((UIButton *)self).imageView.image.accessibilityIdentifier ?: @""];
         }
         NSString *label = [self labelForReuseView];
